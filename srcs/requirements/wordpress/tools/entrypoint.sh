@@ -5,7 +5,7 @@ if [ ! -f "/var/www/html/wp-config.php" ]; then
         rm -rf *.*
 
         wp core download --allow-root
-        
+
         mv wp-config-sample.php wp-config.php
 
 	sed -i "s/database_name_here/$WP_DATABASE/g" wp-config.php
@@ -21,7 +21,11 @@ if [ ! -f "/var/www/html/wp-config.php" ]; then
             --admin_password=$WP_ADMIN_PWD \
             --skip-email
 
-        wp user create --allow-root --user_login=$WP_USER --user_email=$WP_EMAIL --role=author --user_pass=$WP_PASSWORD
+        wp user create --allow-root \
+                --user_login=$WP_USER \
+                --user_email=$WP_EMAIL \
+                --role=author \
+                --user_pass=$WP_PASSWORD \
 
         wp plugin uninstall akismet hello --allow-root
         wp plugin update --all --allow-root
